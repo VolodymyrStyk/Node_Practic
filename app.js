@@ -3,7 +3,7 @@ const fs = require('fs/promises');
 const path = require('path');
 
 const app = express();
-const userPath = path.join(__dirname,'users.json');
+const userPath = path.join(__dirname, 'users.json');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -11,7 +11,20 @@ app.use(express.urlencoded({extended: true}));
 app.get('/', async (req, res) => {
     const data = await fs.readFile(userPath, 'utf-8');
     const dataResponse = JSON.parse(data);
-
+    const {sortParam} = req.query;
+    switch (sortParam) {
+        case 'ageAsc':
+            dataResponse.sort((a, b) => Number(a.age) - Number(b.age));
+            break;
+        case 'ageDesc':
+            dataResponse.sort((a, b) => Number(b.age) - Number(a.age));
+            break;
+        case 'nameAsc':
+            dataResponse.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+            break;
+        case 'nameDesc':
+            dataResponse.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1);
+    }
     res.json(dataResponse);
 });
 
@@ -51,7 +64,7 @@ app.delete('/:id', async (req, res) => {
     const data = await fs.readFile(userPath, 'utf-8');
     const dataResponse = JSON.parse(data);
     const {id} = req.params;
-    dataResponse.splice(id,1);
+    dataResponse.splice(id, 1);
 
     const writeData = await fs.writeFile(userPath, JSON.stringify(dataResponse), 'utf-8');
 

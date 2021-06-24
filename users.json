@@ -1,7 +1,1 @@
-[
-  {
-    "name": "max",
-    "age": "15",
-    "student": "true"
-  }
-]
+[{"name":"max","age":"15","student":"true"},{"name":"ivan","age":"25","student":"false"},{"name":"vova","age":"27","student":"true"},{"name":"olya","age":"22","student":"true"},{"name":"andriy","age":"12","student":"true"},{"name":"zorjanz","age":"55","student":"true"}]
