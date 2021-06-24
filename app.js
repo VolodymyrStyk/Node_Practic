@@ -6,7 +6,7 @@ const dirNameArr = ['manOlder20', 'manYonger20', 'womanOlder20', 'womanYonger20'
 
 
 async function execute  (){
-    await createDiretories(dirNameArr);
+    await createDiretories(dirNameArr)
     await divideUsersByDirs(users);
 }
 try{
