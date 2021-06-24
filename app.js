@@ -3,13 +3,13 @@ const divideUsersByDirs = require('./src/divideUsersByDirs');
 const users = require('./src/users');
 const dirNameArr = ['manOlder20', 'manYonger20', 'womanOlder20', 'womanYonger20'];
 
-async function execute  (){
+async function execute() {
     await createDiretories(dirNameArr)
     await divideUsersByDirs(users);
 }
-try{
+
+try {
     execute();
-}catch (e){
+} catch (e) {
     console.log('Some error: ' + e);
 }
-
