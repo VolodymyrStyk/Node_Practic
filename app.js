@@ -10,8 +10,8 @@ app.use(express.urlencoded({extended: true}));
 
 app.get('/', async (req, res) => {
     const data = await fs.readFile(userPath, 'utf-8');
-    const dataResponse = JSON.parse(data);
-    const {sortParam} = req.query;
+    let dataResponse = JSON.parse(data);
+    const {sortParam, findName, findAge} = req.query;
     switch (sortParam) {
         case 'ageAsc':
             dataResponse.sort((a, b) => Number(a.age) - Number(b.age));
@@ -24,7 +24,16 @@ app.get('/', async (req, res) => {
             break;
         case 'nameDesc':
             dataResponse.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1);
+            break;
     }
+    if (findName) {
+        dataResponse = dataResponse.filter(user => user.name === findName);
+    }
+
+    if (findAge) {
+        dataResponse = dataResponse.filter(user => user.age === findAge);
+    }
+
     res.json(dataResponse);
 });
 
