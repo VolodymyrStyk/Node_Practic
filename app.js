@@ -14,10 +14,10 @@ app.get('/', async (req, res) => {
     const {sortParam, findName, findAge} = req.query;
     switch (sortParam) {
         case 'ageAsc':
-            dataResponse.sort((a, b) => Number(a.age) - Number(b.age));
+            dataResponse.sort((a, b) => a.age - b.age);
             break;
         case 'ageDesc':
-            dataResponse.sort((a, b) => Number(b.age) - Number(a.age));
+            dataResponse.sort((a, b) => b.age - a.age);
             break;
         case 'nameAsc':
             dataResponse.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
